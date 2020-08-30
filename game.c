@@ -16,45 +16,45 @@
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
 
-/* Append: ë‚¨ëŒ€ì˜ */
+/* Append: ³²´ë¿µ */
 #define NULL_OBJECT -1
 
-#define FOOD 3 // ìŒì‹ 
-#define CHARACTOR 2 //ìºë¦­í„° 
-#define WALL 1 // ë²½ 
+#define FOOD 3 // À½½Ä 
+#define CHARACTOR 2 //Ä³¸¯ÅÍ 
+#define WALL 1 // º® 
 #define NONE 0 // Null Game-Object
 
-struct Food // ìŒì‹ì˜ ìœ„ì¹˜ë¥¼ ëœë¤ìœ¼ë¡œ ìƒì„±í•˜ëŠ” ì¢Œí‘œ x,y ìƒì„± 
+struct Food // À½½ÄÀÇ À§Ä¡¸¦ ·£´ıÀ¸·Î »ı¼ºÇÏ´Â ÁÂÇ¥ x,y »ı¼º 
 {
    int x, y;
 };
 
 void GotoXY(int x, int y, char* s);
-void Title(void); //ê²Œì„ ì‹œì‘í™”ë©´ 
-void Reset(void); //ê²Œì„ì„ ì´ˆê¸°í™” 
-void DrawMap(void); // ê²Œì„íŒ í…Œë‘ë¦¬ë¥¼ ê·¸ë¦¼ 
-void Move(void); //ë±€ë¨¸ë¦¬ë¥¼ ì´ë™ 
-void Pause(void); //ì¼ì‹œì •ì§€ 
-void GameOver(void); //ê²Œì„ ì˜¤ë²„ë¥¼ í™•ì¸ 
-void GenerateFoodOfRandomLoc(void); // ìŒì‹ ìƒì„± 
-void Status(void); // ê°œë°œììš© statusí‘œì‹œ
+void Title(void); //°ÔÀÓ ½ÃÀÛÈ­¸é 
+void Reset(void); //°ÔÀÓÀ» ÃÊ±âÈ­ 
+void DrawMap(void); // °ÔÀÓÆÇ Å×µÎ¸®¸¦ ±×¸² 
+void Move(void); //¹ì¸Ó¸®¸¦ ÀÌµ¿ 
+void Pause(void); //ÀÏ½ÃÁ¤Áö 
+void GameOver(void); //°ÔÀÓ ¿À¹ö¸¦ È®ÀÎ 
+void GenerateFoodOfRandomLoc(void); // À½½Ä »ı¼º 
+void Status(void); // °³¹ßÀÚ¿ë statusÇ¥½Ã
 
 /*
-Append: ë‚¨ëŒ€ì˜ 
+Append: ³²´ë¿µ 
 */
-void GameLoop(); //ê²Œì„ ë£¨í”„ í•¨ìˆ˜ 
+void GameLoop(); //°ÔÀÓ ·çÇÁ ÇÔ¼ö 
 void VisibleCursor();
-void SnakeMoveDirectionHandle(); //ë±€ ë¨¸ë¦¬ ì´ë™ê´€ë ¨ 
-void InitializeMap(); //ë§µ ì´ˆê¸°í™” 
+void SnakeMoveDirectionHandle(); //¹ì ¸Ó¸® ÀÌµ¿°ü·Ã 
+void InitializeMap(); //¸Ê ÃÊ±âÈ­ 
 
 /*
 	Game Variables
 */
-char * snake = "ï¼ "; // ë±€
+char * snake = "£À"; // ¹ì
 int key = 0;
 int posX = 25;
 int posY = 12;
-int direction = NULL_OBJECT; //í˜„ì¬ ë±€ì˜ ì´ë™ë°©í–¥
+int direction = NULL_OBJECT; //ÇöÀç ¹ìÀÇ ÀÌµ¿¹æÇâ
 struct Food food = {
 	.x = NULL_OBJECT,
 	.y = NULL_OBJECT	
@@ -64,7 +64,7 @@ int map[MAP_HEIGHT][MAP_WIDTH];
  
 int main(void)
 {
-	VisibleCursor(); //ì»¤ì„œë¥¼ ì—†ì• ì¤ë‹ˆë‹¤.
+	VisibleCursor(); //Ä¿¼­¸¦ ¾ø¾ÖÁİ´Ï´Ù.
 	GameLoop();
 	
 	return 0;
@@ -72,7 +72,7 @@ int main(void)
 
 ////////////////////////////////////// Utility Functions /////////////////////////////////////////////////////////////
 /*
-xê°’ì„ 2xë¡œ ë³€ê²½, ì¢Œí‘œê°’ì— ë°”ë¡œ ë¬¸ìì—´ì„ ì…ë ¥í•  ìˆ˜ ìˆë„ë¡ printfí•¨ìˆ˜ ì‚½ì…
+x°ªÀ» 2x·Î º¯°æ, ÁÂÇ¥°ª¿¡ ¹Ù·Î ¹®ÀÚ¿­À» ÀÔ·ÂÇÒ ¼ö ÀÖµµ·Ï printfÇÔ¼ö »ğÀÔ
 */
 void GotoXY(int x, int y, char* s)
 {   
@@ -82,7 +82,7 @@ void GotoXY(int x, int y, char* s)
 }
 
 /*
-	ì»¤ì„œë¥¼ ì—†ì•±ë‹ˆë‹¤. 
+	Ä¿¼­¸¦ ¾ø¾Û´Ï´Ù. 
 */
 void VisibleCursor()
 {
@@ -95,7 +95,7 @@ void VisibleCursor()
 
 void GameLoop()
 {
-	direction = RIGHT; //ì˜¤ë¥¸ìª½ ë°©í–¥ìœ¼ë¡œ ì´ë™í•˜ê²Œ ê¸°ë³¸ì„¤ì • 
+	direction = RIGHT; //¿À¸¥ÂÊ ¹æÇâÀ¸·Î ÀÌµ¿ÇÏ°Ô ±âº»¼³Á¤ 
 	InitializeMap();
 	map[MAP_HEIGHT/2][MAP_WIDTH/2] = CHARACTOR;
 	posY = MAP_HEIGHT/2;
@@ -113,8 +113,9 @@ void GameLoop()
 
 void SnakeMoveDirectionHandle()
 {
-	//í‚¤ë³´ë“œê°€ ëˆŒë ¸ì„ë•Œ 
-	for(int i = 0; i < 5; i++)
+	int i;
+	//Å°º¸µå°¡ ´­·ÈÀ»¶§ 
+	for(i = 0; i < 5; i++)
 	{
 		if(_kbhit())
 		{
@@ -151,7 +152,7 @@ void Move()
 	}
 	
 	/*
-		ì´ì „ ìœ„ì¹˜ë¥¼ ì§€ìš°ê³  ìƒˆë¡­ê²Œ ê¹”ì•„ì¤ë‹ˆë‹¤.
+		ÀÌÀü À§Ä¡¸¦ Áö¿ì°í »õ·Ó°Ô ±ò¾ÆÁİ´Ï´Ù.
 	*/
 	map[tmpY][tmpX] = NONE; 
 	map[posY][posX] = CHARACTOR;
@@ -159,8 +160,9 @@ void Move()
 
 void InitializeMap()
 {
-	for (int i = 0; i < MAP_HEIGHT; i++) {
-		for (int j = 0; j < MAP_WIDTH; j++) {
+	int i, j;
+	for (i = 0; i < MAP_HEIGHT; i++) {
+		for (j = 0; j < MAP_WIDTH; j++) {
 			if (i != 0 && j != 0 && j != MAP_WIDTH - 1 && i != MAP_HEIGHT - 1)
 				map[i][j] = NONE;
 			else
@@ -169,7 +171,7 @@ void InitializeMap()
 	}
 }
 
-void DrawMap(void) // ë§µ ê°€ë¡œ 32, ì„¸ë¡œ 21
+void DrawMap(void) // ¸Ê °¡·Î 32, ¼¼·Î 21
 {
 	system("cls");
     int x, y;
@@ -181,13 +183,13 @@ void DrawMap(void) // ë§µ ê°€ë¡œ 32, ì„¸ë¡œ 21
     		switch(map[y][x])
     		{
     			case WALL:
-    				GotoXY(x, y, "â– ");
+    				GotoXY(x, y, "¡á");
     				break;
     			case FOOD:
-    				GotoXY(x, y, "â™ª");
+    				GotoXY(x, y, "¢Ü");
     				break;
     			case CHARACTOR:
-    				GotoXY(x, y, "ï¼ "); 
+    				GotoXY(x, y, "£À"); 
     				break;
 			}
 		}
@@ -195,7 +197,7 @@ void DrawMap(void) // ë§µ ê°€ë¡œ 32, ì„¸ë¡œ 21
 }
 
 /*
-ìŒì‹ìƒì„±
+À½½Ä»ı¼º
 */
 void GenerateFoodOfRandomLoc(void)
 {
@@ -208,11 +210,11 @@ void GenerateFoodOfRandomLoc(void)
 	}
  	
    /*
-   	  í•¨ìˆ˜ëŠ” í•œê°€ì§€ ì¼ë§Œ í•˜ëŠ”ê²Œ ì¢‹ìŠµë‹ˆë‹¤.
-	  ê·¸ë ¤ì£¼ëŠ” ë¶€ë¶„ì€ DrawMapì´ í•˜ë„ë¡ í•˜ê²Œ í•´ì£¼ì„¸ìš”. 
+   	  ÇÔ¼ö´Â ÇÑ°¡Áö ÀÏ¸¸ ÇÏ´Â°Ô ÁÁ½À´Ï´Ù.
+	  ±×·ÁÁÖ´Â ºÎºĞÀº DrawMapÀÌ ÇÏµµ·Ï ÇÏ°Ô ÇØÁÖ¼¼¿ä. 
    */
 //   if (rd.x >5 && rd.y>5)
 //   {
-//      GotoXY(rd.x, rd.y, "â™¬");
+//      GotoXY(rd.x, rd.y, "¢İ");
 //   }   
 }
