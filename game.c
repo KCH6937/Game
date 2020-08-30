@@ -8,8 +8,6 @@
 #define RIGHT 77
 #define UP 72
 #define DOWN 80
-#define PAUSE 112
-#define ESC 27
 
 #define MAP_X 3
 #define MAP_Y 2
@@ -30,14 +28,9 @@ struct Food // 음식의 위치를 랜덤으로 생성하는 좌표 x,y 생성
 };
 
 void GotoXY(int x, int y, char* s);
-void Title(void); //게임 시작화면 
-void Reset(void); //게임을 초기화 
 void DrawMap(void); // 게임판 테두리를 그림 
 void Move(void); //뱀머리를 이동 
-void Pause(void); //일시정지 
-void GameOver(void); //게임 오버를 확인 
 void GenerateFoodOfRandomLoc(void); // 음식 생성 
-void Status(void); // 개발자용 status표시
 
 /*
 Append: 남대영 
@@ -81,10 +74,7 @@ void GotoXY(int x, int y, char* s)
    printf("%s", s);
 }
 
-/*
-	커서를 없앱니다. 
-*/
-void VisibleCursor()
+void VisibleCursor() // 커서를 지웁니다. 
 {
 	CONSOLE_CURSOR_INFO cursorInfo = { 0, };
 	cursorInfo.dwSize = 1;
@@ -114,7 +104,7 @@ void GameLoop()
 void SnakeMoveDirectionHandle()
 {
 	int i;
-	//키보드가 눌렸을때 
+	//키보드가 눌렸을때
 	for(i = 0; i < 5; i++)
 	{
 		if(_kbhit())
@@ -208,13 +198,4 @@ void GenerateFoodOfRandomLoc(void)
 		
 		map[food.y][food.x] = FOOD;
 	}
- 	
-   /*
-   	  함수는 한가지 일만 하는게 좋습니다.
-	  그려주는 부분은 DrawMap이 하도록 하게 해주세요. 
-   */
-//   if (rd.x >5 && rd.y>5)
-//   {
-//      GotoXY(rd.x, rd.y, "♬");
-//   }   
 }
