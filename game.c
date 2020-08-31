@@ -36,9 +36,9 @@ void GenerateFoodOfRandomLoc(void); // 음식 생성
 Append: 남대영 
 */
 void GameLoop(); //게임 루프 함수 
-void VisibleCursor();
+void VisibleCursor(); // 커서 표시 지움 
 void SnakeMoveDirectionHandle(); //뱀 머리 이동관련 
-void InitializeMap(); //맵 초기화 
+void InitializeMap(); //맵 초기화
 
 /*
 	Game Variables
@@ -85,12 +85,12 @@ void VisibleCursor() // 커서를 지웁니다.
 
 void GameLoop()
 {
-	direction = RIGHT; //오른쪽 방향으로 이동하게 기본설정 
+	direction = RIGHT;	//오른쪽 방향으로 이동하게 기본설정 
 	InitializeMap();
 	map[MAP_HEIGHT/2][MAP_WIDTH/2] = CHARACTOR;
 	posY = MAP_HEIGHT/2;
 	posX = MAP_WIDTH/2;
-
+		
 	while(1)
 	{
 		GenerateFoodOfRandomLoc();
@@ -161,7 +161,7 @@ void InitializeMap()
 	}
 }
 
-void DrawMap(void) // 맵 가로 32, 세로 21
+void DrawMap(void) // 맵 가로 28, 세로 18(양 끝단 벽 미포함) 
 {
 	system("cls");
     int x, y;
